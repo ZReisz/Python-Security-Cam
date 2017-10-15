@@ -1,0 +1,39 @@
+#This code will email a specific photo to any gmail.  
+
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders 
+
+fromaddr = "GMAIL ADDRESS" #Change from email
+toaddr = "ANY EMAIL ADDRESS" #Change to email
+
+msg = MIMEMultipart()
+
+msg['From'] = fromaddr #DO NOT CHANGE
+msg['To'] = toaddr #DO NOT CHANGE
+msg['Subject'] = "Test Picture Subject" #Change subject text here
+
+body = "Test Body" #Change body text here
+
+msg.attach(MIMEText(body, 'plain'))
+
+filename = (r'''C:\Users\user\Pictures\falloutvaultboythumbsup.jpg''') #Change file path here
+attachment = open(filename, "rb") 
+                  
+part = MIMEBase('application', 'octet-stream')
+part.set_payload((attachment).read())
+encoders.encode_base64(part)
+part.add_header('Contect-Disposition', "attachment; filename " + filename)
+
+msg.attach(part) 
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login(fromaddr, "GMAIL PASSWORD")
+text = msg.as_string()
+server.sendmail(fromaddr, toaddr, text)
+server.quit()
+
+print("Email Sent")
