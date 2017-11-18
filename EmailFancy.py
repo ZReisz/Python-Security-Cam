@@ -7,8 +7,8 @@ from email.mime.base import MIMEBase
 from email import encoders 
 
 #This code emails photos
-fromaddr = "zackreisz02@gmail.com" #Change from email
-toaddr = "reisz@student.uiwtx.edu" #Change to email
+fromaddr = "###############" #Change from email
+toaddr = "###############" #Change to email
 
 msg = MIMEMultipart()
 
@@ -16,11 +16,11 @@ msg['From'] = fromaddr #DO NOT CHANGE
 msg['To'] = toaddr #DO NOT CHANGE
 msg['Subject'] = "ALERT! Activity Detected by Camera 1"  #Change subject text here
 
-body = "Detection Date: " +  time.strftime('%A | %d-%B-%Y | %H:%M:%S') #Change body text here
+body = "Detection Date: " +  time.strftime('%A | %d-%B-%Y | %H:%M:%S') 
 
 msg.attach(MIMEText(body, 'plain'))
 
-filename = (r'''C:\Users\user\Pictures\FOB.jpg''') #Change file path here
+filename = (r'''C:\Users\user\Pictures\####''') #Change file path here
 attachment = open(filename, "rb") 
                   
 part = MIMEBase('application', 'octet-stream')
@@ -32,7 +32,7 @@ msg.attach(part)
 
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
-server.login(fromaddr, "Re!962328")
+server.login(fromaddr, "#######")
 text = msg.as_string()
 server.sendmail(fromaddr, toaddr, text)
 server.quit()
